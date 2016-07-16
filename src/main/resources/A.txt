@@ -1,0 +1,8 @@
+Java, the language and the platform, owes much of its fame and longevity to the libraries, frameworks and tools which together make
+up its ecosystem. No other programming language has been able to match the support that a rich ecosystem like the JVM
+    has achieved. It’s extremely important to understand how the ecosystem exists today, as well as its history. This way
+we can extract trends and patterns to understand the direction in which we are heading. In fact, all ecosystems are living organisms. They
+’re born, they grow and become established, live their lives and one day will
+    be replaced by a better, more suitable technology that solves the problem better.
+Of course the problems we deal with are changing too. Some ecosystems survive in care homes, refusing to pass
+    away, like FORTRAN and COBOL.
