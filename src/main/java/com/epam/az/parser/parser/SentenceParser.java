@@ -1,5 +1,6 @@
 package com.epam.az.parser.parser;
 
+import com.epam.az.parser.entity.BaseEntity;
 import com.epam.az.parser.entity.Paragraph;
 import com.epam.az.parser.entity.Word;
 
@@ -24,4 +25,7 @@ public class SentenceParser {
         return words;
     }
 
+    public List<BaseEntity> parse(List list) {
+        return null;
+    }
 }

@@ -3,7 +3,7 @@ package com.epam.az.parser.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Page {
+public class Page extends BaseEntity {
 
     private List <Paragraph> paragraphs = new ArrayList<Paragraph>();
 

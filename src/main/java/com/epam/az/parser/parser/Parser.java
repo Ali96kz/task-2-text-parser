@@ -4,6 +4,6 @@ import com.epam.az.parser.entity.BaseEntity;
 
 import java.util.List;
 
-public class ParagrapParser {
-
+public interface Parser {
+    public List<BaseEntity> parse(BaseEntity list);
 }

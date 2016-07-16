@@ -1,5 +1,6 @@
 package com.epam.az.parser.parser;
 
+import com.epam.az.parser.entity.BaseEntity;
 import com.epam.az.parser.entity.Symbol;
 
 import java.util.ArrayList;
@@ -26,5 +27,9 @@ public class WordParser {
         }
 
         return symbols;
+    }
+
+    public List<BaseEntity> parse(List list) {
+        return null;
     }
 }
