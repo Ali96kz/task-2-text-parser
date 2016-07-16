@@ -1,28 +1,33 @@
 package com.epam.az.parser.parser;
 
 import com.epam.az.parser.entity.BaseEntity;
-import com.epam.az.parser.entity.Paragraph;
+import com.epam.az.parser.entity.Sentence;
 import com.epam.az.parser.entity.Word;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SentenceParser {
-    public List<Word> parse(String sentence){
+    public void parse(String value, Sentence sentence){
         List<Word> words = new ArrayList<Word>();
-        Word word = new Word();
-        for (int i = 0; i < sentence.length(); i++) {
-            if(sentence.charAt(i) == ' ' || sentence.charAt(i) == '.') {
-                for (int j = i; j < sentence.length(); j++) {
-                   if (sentence.charAt(j) != ' ') {
-                       word.addSymbol(sentence.charAt(j));
+
+        WordParser wordParser = new WordParser();
+
+        for (int i = 0; i < value.length(); i++) {
+            if(value.charAt(i) == ' ' || value.charAt(i) == '.') {
+                Word word = new Word();
+                for (int j = i; j < value.length(); j++) {
+                   if (value.charAt(j) != ' ') {
+                       word.addSymbol(value.charAt(j));
+
                    }
                 }
+                wordParser.parse(word);
                 words.add(word);
             }
         }
 
-        return words;
+        sentence.setWords(words);
     }
 
     public List<BaseEntity> parse(List list) {

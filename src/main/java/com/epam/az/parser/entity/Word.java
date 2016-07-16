@@ -28,4 +28,7 @@ public class Word extends BaseEntity {
     public void setValue(String value) {
         this.value = new StringBuilder(value);
     }
+    public int length(){
+        return value.length();
+    }
 }

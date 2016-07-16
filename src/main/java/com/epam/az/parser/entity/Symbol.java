@@ -1,6 +1,6 @@
 package com.epam.az.parser.entity;
 
-public class Symbol extends BaseEntity{
+public class Symbol {
     private char value;
     private int count;
 

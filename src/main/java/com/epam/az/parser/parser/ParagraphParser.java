@@ -1,15 +1,17 @@
 package com.epam.az.parser.parser;
 
 import com.epam.az.parser.entity.BaseEntity;
+import com.epam.az.parser.entity.Paragraph;
 import com.epam.az.parser.entity.Sentence;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ParagraphParser {
-    public List<Sentence> parse(String string){
-        List<Sentence> sentences = new ArrayList<Sentence>();
 
+    public void parse(String string, Paragraph paragraph){
+        List<Sentence> sentences = new ArrayList<Sentence>();
+        SentenceParser sentenceParser = new SentenceParser();
         for (int i = 0; i < string.length(); i++) {
             StringBuilder stringBuilder = new StringBuilder();
             Sentence sentence = new Sentence();
@@ -20,14 +22,13 @@ public class ParagraphParser {
                     if(string.charAt(j) == '.' || j == 0){
                         sentence.setValue(stringBuilder.toString());
                         sentences.add(sentence);
+
+                        sentenceParser.parse(sentence.getValue(), sentence);
                         break;
                     }
-
                 }
             }
-
         }
-
-        return sentences;
+        paragraph.setSentences(sentences);
     }
 }

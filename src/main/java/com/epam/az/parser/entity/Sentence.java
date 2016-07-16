@@ -3,7 +3,7 @@ package com.epam.az.parser.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Sentence extends BaseEntity{
+public class Sentence {
     private String value;
     private List<Word> words = new ArrayList<Word>();
 
