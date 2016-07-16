@@ -10,20 +10,19 @@ public class WordParser {
     public List<Symbol> parse(char word[]) {
         List<Symbol> symbols = new ArrayList<Symbol>();
 
-        Symbol symbol = new Symbol();
         for (int i = 0; i < word.length; i++) {
+            Symbol symbol = new Symbol();
             if(word[i] != ' ') {
-                for (int j = i ; j < word.length; j++) {
+                symbol.setValue(word[i]);
+                symbol.addCount();
+                for (int j = i+1 ; j < word.length; j++) {
                     if (word[i] == word[j] ) {
-                        symbol.setValue(word[j]);
                         symbol.addCount();
                         word[j] = ' ';
                     }
                 }
-            }
-
-            if(symbol.getCount() != 0)
                 symbols.add(symbol);
+            }
         }
 
         return symbols;

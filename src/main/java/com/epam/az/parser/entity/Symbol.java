@@ -2,7 +2,7 @@ package com.epam.az.parser.entity;
 
 public class Symbol {
     private char value;
-    private int count = 0;
+    private int count;
 
     public Symbol() {
     }

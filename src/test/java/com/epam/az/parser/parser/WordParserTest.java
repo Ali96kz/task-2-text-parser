@@ -15,7 +15,14 @@ public class WordParserTest {
     public void basicTest(){
         List<Symbol> symbols = wordParser.parse("ssaassggss".toCharArray());
         for (Symbol symbol : symbols) {
-            System.out.println(symbol.getCount()+" " +symbol.getValue());
+            if(symbol.getValue() == 's')
+                assertEquals("Incorrect symbol count", 6, symbol.getCount());
+
+            else if (symbol.getValue() == 'a')
+                assertEquals("Incorrect symbol count", 2, symbol.getCount());
+
+            else if (symbol.getValue() == 'g')
+                assertEquals("Incorrect symbol count", 2, symbol.getCount());
         }
     }
 
@@ -24,7 +31,7 @@ public class WordParserTest {
         char[] c = "thisaqret".toCharArray();
 
         List<Symbol> symbols =  wordParser.parse(c);
-        assertEquals("Incorrect list size",symbols.size(), 9);
+        assertEquals("Incorrect list size",symbols.size(), 8);
     }
     @Test
     public void oneChar(){
@@ -39,5 +46,6 @@ public class WordParserTest {
     @Test
     public void emptyArray(){
         List<Symbol> symbols =  wordParser.parse("".toCharArray());
+        assertEquals("Incorrect list size", 0, symbols.size());
     }
 }
