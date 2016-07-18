@@ -1,4 +1,4 @@
-package com.epam.az.parser.service;
+package com.epam.az.service;
 
 import java.io.File;
 import java.io.FileInputStream;
