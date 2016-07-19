@@ -29,4 +29,9 @@ public class Paragraph {
     public List<Word> getWords(int i){
         return sentences.get(i).getWords();
     }
+    public String assemble(){
+        StringBuilder stringBuilder = new StringBuilder();
+        //TODO Write this
+        return stringBuilder.toString();
+    }
 }

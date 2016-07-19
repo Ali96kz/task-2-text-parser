@@ -1,13 +1,16 @@
 package com.epam.az.entity;
 
-public class Word {
-    private String value;
+import java.util.ArrayList;
+import java.util.List;
 
-    public String getValue() {
-        return value;
+public class Word {
+   List<WordChar> wordChars = new ArrayList<WordChar>();
+
+    public List<WordChar> getWordChars() {
+        return wordChars;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setWordChars(List<WordChar> wordChars) {
+        this.wordChars = wordChars;
     }
 }

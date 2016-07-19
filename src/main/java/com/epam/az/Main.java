@@ -1,15 +1,19 @@
 package com.epam.az;
 
-import com.epam.az.entity.Paragraph;
-import com.epam.az.service.FileReader;
 
-import java.io.IOException;
+import java.util.regex.Pattern;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        FileReader fileReader = new FileReader();
+    public static void main(String[] args) {
+        /*FileReader fileReader = new FileReader();
         Parser parser = new Parser();
         Paragraph paragraph = parser.parse(fileReader.read());
+*/
+        Pattern pattern = Pattern.compile("//S //s ");
+        String[] strings = pattern.split("aaaaa  aaa  aas  s  ss  vvv  ffb  bb   ss   aa");
+        for (String string : strings) {
+            System.out.println(string);
+        }
 
     }
 }
