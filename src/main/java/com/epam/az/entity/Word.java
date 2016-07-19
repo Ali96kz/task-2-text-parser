@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Word {
-   List<WordChar> wordChars = new ArrayList<WordChar>();
+    List<WordChar> wordChars = new ArrayList<WordChar>();
 
     public List<WordChar> getWordChars() {
         return wordChars;

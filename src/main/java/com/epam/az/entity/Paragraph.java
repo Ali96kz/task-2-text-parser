@@ -34,4 +34,7 @@ public class Paragraph {
         //TODO Write this
         return stringBuilder.toString();
     }
+    public void add(Sentence sentence){
+        sentences.add(sentence);
+    }
 }

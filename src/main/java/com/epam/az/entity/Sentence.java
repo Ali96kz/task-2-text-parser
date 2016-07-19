@@ -21,6 +21,9 @@ public class Sentence {
         }
         return result;
     }
+    public void add(Word word){
+        words.add(word);
+    }
 
     public void remove(int i){
         words.remove(i);
