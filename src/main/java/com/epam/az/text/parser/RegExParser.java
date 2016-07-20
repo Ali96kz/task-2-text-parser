@@ -1,19 +1,18 @@
-package com.epam.az;
+package com.epam.az.text.parser;
 
-import com.epam.az.entity.*;
+import com.epam.az.text.parser.entity.*;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.HashMap;
+import java.util.Map;
 
-
-public class Parser {
-
+public class RegExParser {
+    private Map<String, String> regex = new HashMap<String, String>();
     public Text parseText(String source){
         Text result = new Text();
         String[] strings =  source.split("(?<=\\n)");
         for (String string : strings) {
             Paragraph paragraph = parseParagraph(string);
-            result.addParagraph(paragraph);
+            result.add(paragraph);
         }
         return  result;
     }
@@ -25,13 +24,12 @@ public class Parser {
             Sentence sentence = parseSentence(string);
             result.add(sentence);
         }
-
         return result;
     }
 
     public Sentence parseSentence(String source){
         Sentence result = new Sentence();
-        String [] strings = source.split("(?<=\\s)");
+        String [] strings = source.split("(?<=\\w)(?=\\W) | (?<=\\W) (?=\\w) | (?<=\\W)(?=\\W)");
         for (String string : strings) {
             Word word = parseWord(string);
             result.add(word);
@@ -40,22 +38,16 @@ public class Parser {
     }
 
     public Word parseWord(String source){
+
         Word result = new Word();
-        String [] strings = source.split("(?<=\\w)");
-        for (String string : strings) {
-            Pattern pattern = Pattern.compile("\\w");
-            Matcher matcher = pattern.matcher(string);
-            if(matcher.matches() == true){
-                Symbol wordChar = new WordChar();
-                wordChar.setValue(string.charAt(0));
-                result.addSymbol(wordChar);
-            }
-            else {
-                Symbol punctuationChar = new PunctuationChar();
-                punctuationChar.setValue(string.charAt(0));
-                result.addSymbol(punctuationChar);
-            }
+        WordChar wordChar;
+        for (int i = 0; i < source.length(); i++) {
+            wordChar = new WordChar();
+            char ch = source.charAt(i);
+            wordChar.setValue(ch);
+            result.add(wordChar);
         }
+
         return result;
     }
 
