@@ -40,7 +40,7 @@ public class RegExParser {
     public Word parseWord(String source){
 
         Word result = new Word();
-        WordChar wordChar;
+        WordChar wordChar;s
         for (int i = 0; i < source.length(); i++) {
             wordChar = new WordChar();
             char ch = source.charAt(i);
