@@ -1,6 +1,6 @@
 package com.epam.az.entity;
 
-public class PunctuationChar {
+public class PunctuationChar extends Symbol {
     private char value;
 
     public char getValue() {

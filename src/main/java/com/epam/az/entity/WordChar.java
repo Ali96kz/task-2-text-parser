@@ -1,6 +1,6 @@
 package com.epam.az.entity;
 
-public class WordChar {
+public class WordChar extends Symbol {
     private char value;
 
     public char getValue() {

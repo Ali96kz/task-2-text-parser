@@ -5,7 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class FileReader {
+public class FileReaderz {
     public String read() throws IOException {
         StringBuilder str = new StringBuilder();
         File file = new File("/home/ali/IdeaProjects/task-2-text-parser/src/main/resources/A.txt");

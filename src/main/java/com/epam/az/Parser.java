@@ -1,9 +1,9 @@
 package com.epam.az;
 
-import com.epam.az.entity.Paragraph;
-import com.epam.az.entity.Sentence;
-import com.epam.az.entity.Text;
-import com.epam.az.entity.Word;
+import com.epam.az.entity.*;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class Parser {
@@ -41,8 +41,21 @@ public class Parser {
 
     public Word parseWord(String source){
         Word result = new Word();
-
-
+        String [] strings = source.split("(?<=\\w)");
+        for (String string : strings) {
+            Pattern pattern = Pattern.compile("\\w");
+            Matcher matcher = pattern.matcher(string);
+            if(matcher.matches() == true){
+                Symbol wordChar = new WordChar();
+                wordChar.setValue(string.charAt(0));
+                result.addSymbol(wordChar);
+            }
+            else {
+                Symbol punctuationChar = new PunctuationChar();
+                punctuationChar.setValue(string.charAt(0));
+                result.addSymbol(punctuationChar);
+            }
+        }
         return result;
     }
 

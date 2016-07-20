@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Word {
-    List<WordChar> wordChars = new ArrayList<WordChar>();
+    List<Symbol> wordChars = new ArrayList<Symbol>();
 
-    public List<WordChar> getWordChars() {
+    public List<Symbol> getWordChars() {
         return wordChars;
     }
-
-    public void setWordChars(List<WordChar> wordChars) {
+    public void setWordChars(List<Symbol> wordChars) {
         this.wordChars = wordChars;
+    }
+
+    public void addSymbol(Symbol symbol){
+        wordChars.add(symbol);
     }
 }
