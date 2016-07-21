@@ -11,10 +11,10 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) throws IOException, InstantiationException, IllegalAccessException {
         FileReaderz fileReader = new FileReaderz();
-        String str = fileReader.read();
+         String str = fileReader.read();
         Parser parser = new GenericRegExParser();
-        Text text = (Text) parser.parse(AbstractComposite.class, str);
-    /*    StringBuilder stringBuilder = new StringBuilder();
+        Text text = (Text) parser.parse(Text.class, str);
+        StringBuilder stringBuilder = new StringBuilder();
         text.assemble(stringBuilder);
-    */}
+    }
 }

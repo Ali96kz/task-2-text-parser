@@ -14,40 +14,50 @@ public class GenericRegExParser implements Parser {
         init();
     }
     public void init(){
-        clazzes.put(AbstractComposite.class, Text.class);
         clazzes.put(Text.class, Paragraph.class);
         clazzes.put(Paragraph.class, Sentence.class);
         clazzes.put(Sentence.class, SentencePart.class);
+        clazzes.put(Word.class, Word.class);
 
         regEx.put(Text.class, "(?<=\\n)");
-        regEx.put(Paragraph.class, "(?<=[.!?]\\s");
+        regEx.put(Paragraph.class, "(?<=[.!?]\\s)");
         regEx.put(Sentence.class, "(?<=\\w)(?=\\W) | (?<=\\W) (?=\\w) | (?<=\\W)(?=\\W)");
         regEx.put(SentencePart.class, "");
     }
+
     public  <T extends AbstractComposite> T parse( Class<T> compositeClass, String sourceString) throws IllegalAccessException, InstantiationException {
         String[] values = sourceString.split(regEx.get(compositeClass));
-        T result = null;
-        Class<T> clazz = (Class<T>) clazzes.get(compositeClass);
-        result = clazz.newInstance();
+        T result = compositeClass.newInstance();
 
-        if(clazzes.get(clazz) == PunctuationChar.class | clazzes.get(clazz) == WordChar.class){
+        if (clazzes.get(compositeClass) == Word.class) {
             for (int i = 0; i < sourceString.length(); i++) {
-                Pattern pattern = Pattern.compile("\\w");
-                Matcher matcher = pattern.matcher(sourceString);
-                Symbol symbol = null;
-                if (matcher.matches()) {
-                    symbol = new WordChar();
-                }
-                else {
-                    symbol = new PunctuationChar();
-                }
-
+                Symbol symbol = new WordChar();
                 symbol.setValue(sourceString.charAt(i));
                 result.add(symbol);
+            }
+
+            return result;
+        }
+
+        if (clazzes.get(compositeClass) == SentencePart.class) {
+            for (String value : values) {
+                Pattern pattern = Pattern.compile("\\W");
+                Matcher matcher = pattern.matcher(value);
+                if (matcher.matches()) {
+                    for (int i = 0; i < sourceString.length(); i++) {
+                        Symbol symbol = new PunctuationChar();
+                        symbol.setValue(sourceString.charAt(i));
+                        result.add(symbol);
+                    }
+                }
+                else {
+                    result.add(parse(Word.class, value));
+                }
             }
         }
 
         else {
+            Class<T> clazz = (Class<T>) clazzes.get(compositeClass);
             for (String value : values) {
                 T item = parse(clazz, value);
                 result.add(item);
