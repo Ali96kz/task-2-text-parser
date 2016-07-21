@@ -1,12 +1,8 @@
-package com.epam.az.text.parser;
+package com.epam.az.text.parser.parsers;
 
 import com.epam.az.text.parser.entity.*;
 
-import java.util.HashMap;
-import java.util.Map;
-
-public class RegExParser {
-    private Map<String, String> regex = new HashMap<String, String>();
+public class SimpleRegExParser implements Parser{
     public Text parseText(String source){
         Text result = new Text();
         String[] strings =  source.split("(?<=\\n)");
@@ -47,8 +43,12 @@ public class RegExParser {
             wordChar.setValue(ch);
             result.add(wordChar);
         }
-
         return result;
     }
 
+
+    public <T extends AbstractComposite> T parse(Class<T> e, String source) throws IllegalAccessException, InstantiationException {
+        Text text = parseText(source);
+        return (T) text;
+    }
 }
