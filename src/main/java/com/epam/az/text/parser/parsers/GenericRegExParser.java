@@ -22,7 +22,7 @@ public class GenericRegExParser implements Parser {
         regEx.put(Text.class, "(?<=\\n)");
         regEx.put(Paragraph.class, "(?<=[.!?]\\s)");
         regEx.put(Sentence.class, "(?<=\\w)(?=\\W) | (?<=\\W) (?=\\w) | (?<=\\W)(?=\\W)");
-        regEx.put(SentencePart.class, "");
+        regEx.put(Word.class, "");
     }
 
     public  <T extends AbstractComposite> T parse( Class<T> compositeClass, String sourceString) throws IllegalAccessException, InstantiationException {
@@ -39,7 +39,7 @@ public class GenericRegExParser implements Parser {
             return result;
         }
 
-        if (clazzes.get(compositeClass) == SentencePart.class) {
+        else if (clazzes.get(compositeClass) == SentencePart.class) {
             for (String value : values) {
                 Pattern pattern = Pattern.compile("\\W");
                 Matcher matcher = pattern.matcher(value);
