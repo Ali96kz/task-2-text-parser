@@ -15,12 +15,10 @@ public class GenericRegExParser implements Parser {
         clazzes.put(Text.class, Paragraph.class);
         clazzes.put(Paragraph.class, Sentence.class);
         clazzes.put(Sentence.class, SentencePart.class);
-        clazzes.put(Word.class, Word.class);
 
         regEx.put(Text.class, "(?<=\\n)");
         regEx.put(Paragraph.class, "(?<=[.!?]\\s)");
         regEx.put(Sentence.class, "(?<=\\w)(?=\\W) | (?<=\\W) (?=\\w) | (?<=\\W)(?=\\W)");
-        regEx.put(Word.class, "");
     }
 
     public  <T extends AbstractComposite> T parse( Class<T> compositeClass, String sourceString) throws IllegalAccessException, InstantiationException {
@@ -33,9 +31,7 @@ public class GenericRegExParser implements Parser {
                     result.add(punctuationParse(new PunctuationChar(), value));
                 }
                 else {
-                    Class<? extends Compositor> item = clazzes.get(Word.class);
-                    T word = (T) item.newInstance();
-                    result.add(parseWord((Word) word, value));
+                    result.add(parseWord(new Word(), value));
                 }
             }
         } else {
@@ -56,11 +52,10 @@ public class GenericRegExParser implements Parser {
         return symbol;
     }
 
-    private  <E extends Symbol> E punctuationParse(E symbol, String source){
+    private  PunctuationChar  punctuationParse(PunctuationChar symbol, String source){
         for (int i = 0; i < source.length(); i++) {
             symbol.setValue(source.charAt(i));
         }
         return symbol;
     }
-
 }
