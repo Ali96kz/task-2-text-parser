@@ -4,8 +4,6 @@ import com.epam.az.text.parser.entity.*;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class GenericRegExParser implements Parser {
     private Map<Class<? extends Compositor>, String> regEx = new HashMap<Class<? extends Compositor>, String>();
@@ -29,34 +27,18 @@ public class GenericRegExParser implements Parser {
         String[] values = sourceString.split(regEx.get(compositeClass));
         T result = compositeClass.newInstance();
 
-        if (clazzes.get(compositeClass) == Word.class) {
-            for (int i = 0; i < sourceString.length(); i++) {
-                Symbol symbol = new WordChar();
-                symbol.setValue(sourceString.charAt(i));
-                result.add(symbol);
-            }
-
-            return result;
-        }
-
-        else if (clazzes.get(compositeClass) == SentencePart.class) {
+        if (clazzes.get(compositeClass) == SentencePart.class) {
             for (String value : values) {
-                Pattern pattern = Pattern.compile("\\W");
-                Matcher matcher = pattern.matcher(value);
-                if (matcher.matches()) {
-                    for (int i = 0; i < sourceString.length(); i++) {
-                        Symbol symbol = new PunctuationChar();
-                        symbol.setValue(sourceString.charAt(i));
-                        result.add(symbol);
-                    }
+                if (value.matches("\\W")) {
+                    result.add(punctuationParse(new PunctuationChar(), value));
                 }
                 else {
-                    result.add(parse(Word.class, value));
+                    Class<? extends Compositor> item = clazzes.get(Word.class);
+                    T word = (T) item.newInstance();
+                    result.add(parseWord((Word) word, value));
                 }
             }
-        }
-
-        else {
+        } else {
             Class<T> clazz = (Class<T>) clazzes.get(compositeClass);
             for (String value : values) {
                 T item = parse(clazz, value);
@@ -65,4 +47,20 @@ public class GenericRegExParser implements Parser {
         }
         return result;
     }
+    private Word parseWord(Word symbol, String source) {
+        for (int i = 0; i < source.length(); i++) {
+            WordChar wordChar = new WordChar();
+            wordChar.setValue(source.charAt(i));
+            symbol.add(wordChar);
+        }
+        return symbol;
+    }
+
+    private  <E extends Symbol> E punctuationParse(E symbol, String source){
+        for (int i = 0; i < source.length(); i++) {
+            symbol.setValue(source.charAt(i));
+        }
+        return symbol;
+    }
+
 }
