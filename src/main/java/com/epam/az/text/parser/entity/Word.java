@@ -1,11 +1,10 @@
 package com.epam.az.text.parser.entity;
 
-
-import java.util.HashMap;
+import java.util.Map;
 
 public class Word extends AbstractComposite<WordChar> implements SentencePart {
 
-    public void getSentences(HashMap<String, Integer> map) {
+    public void getSentences(Map<String, Integer> map) {
         StringBuilder stringBuilder = new StringBuilder();
 
         for (WordChar item : items) {
