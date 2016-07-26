@@ -1,4 +1,4 @@
-package com.epam.az.text.parser.parsers;
+package com.epam.az.text.parser.parser;
 
 import com.epam.az.text.parser.entity.*;
 
@@ -41,6 +41,7 @@ public class GenericRegExParser implements Parser {
                 result.add(item);
             }
         }
+
         return result;
     }
     private Word parseWord(Word symbol, String source) {

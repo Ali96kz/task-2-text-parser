@@ -4,7 +4,7 @@ import java.io.*;
 
 public class FileReaderz {
     public String readFile(){
-        String result = "";
+       /* String result = "";
         try {
             BufferedReader InputStream = new BufferedReader(new FileReader("resources/A.txt"));
             result = InputStream.readLine();
@@ -13,10 +13,11 @@ public class FileReaderz {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
 
 
-        return result;
+//        return result;
+        return " asdasd asdasd ssssssssssss sssssssssssssasd asd";
     }
     public String read() throws IOException {
         StringBuilder str = new StringBuilder();

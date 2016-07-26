@@ -1,8 +1,8 @@
 package com.epam.az.text.parser;
 
 import com.epam.az.text.parser.entity.Text;
-import com.epam.az.text.parser.parsers.GenericRegExParser;
-import com.epam.az.text.parser.parsers.Parser;
+import com.epam.az.text.parser.parser.GenericRegExParser;
+import com.epam.az.text.parser.parser.Parser;
 import com.epam.az.text.parser.service.FileReaderz;
 
 import java.io.IOException;
@@ -15,7 +15,5 @@ public class Main {
         Text text = parser.parse(Text.class, str);
         StringBuilder stringBuilder = new StringBuilder();
 
-        text.assemble(stringBuilder);
-        System.out.println(stringBuilder);
     }
 }

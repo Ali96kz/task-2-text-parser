@@ -1,4 +1,4 @@
-package com.epam.az.text.parser.parsers;
+package com.epam.az.text.parser.parser;
 
 import com.epam.az.text.parser.entity.*;
 
