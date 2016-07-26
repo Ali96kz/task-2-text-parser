@@ -1,10 +1,11 @@
 package com.epam.az.text.parser.entity;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class Paragraph extends AbstractComposite<Sentence> {
-    @Override
-    public void getSentences(HashMap<String, Integer> map) {
+    public void getSentences(HashMap<Integer, Map<String, Integer>> map) {
+
         for (Sentence item : items) {
             item.getSentences(map);
         }

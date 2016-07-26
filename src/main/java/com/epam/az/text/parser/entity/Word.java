@@ -5,7 +5,6 @@ import java.util.HashMap;
 
 public class Word extends AbstractComposite<WordChar> implements SentencePart {
 
-    @Override
     public void getSentences(HashMap<String, Integer> map) {
         StringBuilder stringBuilder = new StringBuilder();
 

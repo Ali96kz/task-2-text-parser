@@ -6,6 +6,8 @@ import com.epam.az.text.parser.parser.Parser;
 import com.epam.az.text.parser.service.FileReaderz;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) throws IOException, InstantiationException, IllegalAccessException {
@@ -14,6 +16,7 @@ public class Main {
         String str = fileReader.readFile();
         Text text = parser.parse(Text.class, str);
         StringBuilder stringBuilder = new StringBuilder();
+        Map<Integer, Map<String, Integer>> map = new HashMap<Integer, Map<String, Integer>>();
 
-    }
+     }
 }

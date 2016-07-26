@@ -7,6 +7,5 @@ public interface Composite<E extends Compositor> extends Compositor {
     void remove(E item);
     void get(int index);
     void remove(int index);
-    void getSentences(HashMap<String, Integer> map);
 
 }
