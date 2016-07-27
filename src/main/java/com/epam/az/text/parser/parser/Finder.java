@@ -8,9 +8,13 @@ import java.util.Iterator;
 public class Finder {
     public Sentence find(Text text) {
         Iterator it = text.iterator(Sentence.class);
+
         while (it.hasNext()){
-            it.next();
+            Sentence sentence = (Sentence) it.next();
+            sentence.remove(0);
+            sentence.remove(-1);
         }
+
         return null;
     }
 }

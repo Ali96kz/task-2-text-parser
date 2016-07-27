@@ -1,8 +1,9 @@
 package com.epam.az.text.parser.entity;
 
+import java.util.Iterator;
 import java.util.List;
 
-public interface TextComponent<E extends TextComposite> extends TextComposite {
+public interface TextComponent<E extends TextComposite> extends TextComposite, Iterable<E> {
     void add(E item);
 
     void remove(E item);
@@ -13,4 +14,7 @@ public interface TextComponent<E extends TextComposite> extends TextComposite {
 
     List<E> getItems();
 
+    @Override
+    Iterator<E> iterator();
+    Iterator<E> iterator(Class clazz);
 }

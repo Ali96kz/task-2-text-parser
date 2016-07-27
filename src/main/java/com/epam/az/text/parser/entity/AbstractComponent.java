@@ -1,11 +1,14 @@
 package com.epam.az.text.parser.entity;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
-public abstract class AbstractComponent<E extends TextComposite> implements TextComponent<E>, Iterable<E> {
+public abstract class AbstractComponent<E extends TextComposite> implements TextComponent<E>{
     List<E> items = new ArrayList<>();
     static Map<Class, Class> iterComponent = new HashMap<>();
     static Map<Class, Class> deepIter = new HashMap<>();
+
     {
         deepIter.put(Text.class, Paragraph.class);
         deepIter.put(Paragraph.class, Sentence.class);
@@ -62,28 +65,29 @@ public abstract class AbstractComponent<E extends TextComposite> implements Text
         return items;
     }
 
-    class DeepIterator implements Iterator<E>{
-        private Class clazz;
+    class DeepIterator<T extends AbstractComponent> implements Iterator<T>{
         private int cursor = 0;
-        public DeepIterator(Class clazz) {
-            this.clazz = clazz;
-        }
+        private Class aClass;
 
-        public Iterator getDeepIter(Class clazz){
-            if(deepIter.get(clazz) == clazz){
-                return iterator(clazz);
-            }
-            return getDeepIter(deepIter.get(clazz));
+        public DeepIterator(Class aClass) {
+            this.aClass = aClass;
         }
 
         @Override
         public boolean hasNext() {
-            return cursor <= size();
+            if (deepIter.get(aClass) == aClass) {
+
+            }
+            return iterator(deepIter.get(aClass)).hasNext();
         }
+
         @Override
-        public E next() {
-            cursor++;
-            return get(cursor);
+        public T next() {
+            if (deepIter.get(aClass) == aClass) {
+                cursor++;
+                return (T) items.get(cursor);
+            }
+            return (T) iterator(deepIter.get(aClass)).next();
         }
     }
 }
