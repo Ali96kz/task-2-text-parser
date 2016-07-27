@@ -10,12 +10,11 @@ public class Word extends AbstractComposite<WordChar> implements SentencePart {
         for (WordChar item : items) {
             stringBuilder.append(item.getValue());
         }
-        String word  = stringBuilder.toString();
+        String word = stringBuilder.toString();
 
-        if (map.get(word) != null){
-            map.put(word, map.get(word)+1);
-        }
-        else {
+        if (map.get(word) != null) {
+            map.put(word, map.get(word) + 1);
+        } else {
             map.put(word, 1);
         }
     }

@@ -2,18 +2,18 @@ package com.epam.az.text.parser.parser;
 
 import com.epam.az.text.parser.entity.*;
 
-public class SimpleRegExParser implements Parser{
-    public Text parseText(String source){
+public class SimpleRegExParser implements Parser {
+    public Text parseText(String source) {
         Text result = new Text();
-        String[] strings =  source.split("(?<=\\n)");
+        String[] strings = source.split("(?<=\\n)");
         for (String string : strings) {
             Paragraph paragraph = parseParagraph(string);
             result.add(paragraph);
         }
-        return  result;
+        return result;
     }
 
-    public Paragraph parseParagraph(String source){
+    public Paragraph parseParagraph(String source) {
         Paragraph result = new Paragraph();
         String[] strings = source.split("(?<=[.!?]\\s)");
         for (String string : strings) {
@@ -23,9 +23,9 @@ public class SimpleRegExParser implements Parser{
         return result;
     }
 
-    public Sentence parseSentence(String source){
+    public Sentence parseSentence(String source) {
         Sentence result = new Sentence();
-        String [] strings = source.split("(?<=\\w)(?=\\W) | (?<=\\W) (?=\\w) | (?<=\\W)(?=\\W)");
+        String[] strings = source.split("(?<=\\w)(?=\\W) | (?<=\\W) (?=\\w) | (?<=\\W)(?=\\W)");
         for (String string : strings) {
             Word word = parseWord(string);
             result.add(word);
@@ -33,7 +33,7 @@ public class SimpleRegExParser implements Parser{
         return result;
     }
 
-    public Word parseWord(String source){
+    public Word parseWord(String source) {
 
         Word result = new Word();
         WordChar wordChar;

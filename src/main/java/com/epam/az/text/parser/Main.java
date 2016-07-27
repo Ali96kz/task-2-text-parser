@@ -12,8 +12,9 @@ public class Main {
         FileReaderz fileReader = new FileReaderz();
         Parser parser = new GenericRegExParser();
         String str = fileReader.readFile();
-
         Text text = parser.parse(Text.class, str);
 
-     }
+        Finder finder = new Finder();
+        finder.find(text);
+    }
 }

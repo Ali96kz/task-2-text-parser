@@ -8,10 +8,12 @@ import java.util.Map;
 public class GenericRegExParser implements Parser {
     private Map<Class<? extends Compositor>, String> regEx = new HashMap<Class<? extends Compositor>, String>();
     private Map<Class<? extends Compositor>, Class<? extends Compositor>> clazzes = new HashMap<Class<? extends Compositor>, Class<? extends Compositor>>();
-    public GenericRegExParser(){
+
+    public GenericRegExParser() {
         init();
     }
-    public void init(){
+
+    public void init() {
         clazzes.put(Text.class, Paragraph.class);
         clazzes.put(Paragraph.class, Sentence.class);
         clazzes.put(Sentence.class, SentencePart.class);
@@ -21,7 +23,7 @@ public class GenericRegExParser implements Parser {
         regEx.put(Sentence.class, "(?<=\\w)(?=\\W) | (?<=\\W) (?=\\w) | (?<=\\W)(?=\\W)");
     }
 
-    public  <T extends AbstractComposite> T parse( Class<T> compositeClass, String sourceString) throws IllegalAccessException, InstantiationException {
+    public <T extends AbstractComposite> T parse(Class<T> compositeClass, String sourceString) throws IllegalAccessException, InstantiationException {
         String[] values = sourceString.split(regEx.get(compositeClass));
         T result = compositeClass.newInstance();
 
@@ -29,8 +31,7 @@ public class GenericRegExParser implements Parser {
             for (String value : values) {
                 if (value.matches("\\W")) {
                     result.add(punctuationParse(new PunctuationChar(), value));
-                }
-                else {
+                } else {
                     result.add(parseWord(new Word(), value));
                 }
             }
@@ -44,6 +45,7 @@ public class GenericRegExParser implements Parser {
 
         return result;
     }
+
     private Word parseWord(Word symbol, String source) {
         for (int i = 0; i < source.length(); i++) {
             WordChar wordChar = new WordChar();
@@ -53,7 +55,7 @@ public class GenericRegExParser implements Parser {
         return symbol;
     }
 
-    private  PunctuationChar  punctuationParse(PunctuationChar symbol, String source){
+    private PunctuationChar punctuationParse(PunctuationChar symbol, String source) {
         for (int i = 0; i < source.length(); i++) {
             symbol.setValue(source.charAt(i));
         }

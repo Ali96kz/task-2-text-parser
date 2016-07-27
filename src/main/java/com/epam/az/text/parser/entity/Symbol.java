@@ -1,6 +1,6 @@
 package com.epam.az.text.parser.entity;
 
-public abstract class Symbol implements  Leaf{
+public abstract class Symbol implements Leaf {
     private char value;
 
     public StringBuilder assemble(StringBuilder stringBuilder) {
