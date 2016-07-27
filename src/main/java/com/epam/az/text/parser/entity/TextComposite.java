@@ -1,5 +1,5 @@
 package com.epam.az.text.parser.entity;
 
-public interface Compositor {
+public interface TextComposite {
     StringBuilder assemble(StringBuilder stringBuilder);
 }

@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GenericRegExParser implements Parser {
-    private Map<Class<? extends Compositor>, String> regEx = new HashMap<Class<? extends Compositor>, String>();
-    private Map<Class<? extends Compositor>, Class<? extends Compositor>> clazzes = new HashMap<Class<? extends Compositor>, Class<? extends Compositor>>();
+    private Map<Class<? extends TextComposite>, String> regEx = new HashMap<Class<? extends TextComposite>, String>();
+    private Map<Class<? extends TextComposite>, Class<? extends TextComposite>> clazzes = new HashMap<Class<? extends TextComposite>, Class<? extends TextComposite>>();
 
     public GenericRegExParser() {
         init();
@@ -23,7 +23,7 @@ public class GenericRegExParser implements Parser {
         regEx.put(Sentence.class, "(?<=\\w)(?=\\W) | (?<=\\W) (?=\\w) | (?<=\\W)(?=\\W)");
     }
 
-    public <T extends AbstractComposite> T parse(Class<T> compositeClass, String sourceString) throws IllegalAccessException, InstantiationException {
+    public <T extends AbstractComponent> T parse(Class<T> compositeClass, String sourceString) throws IllegalAccessException, InstantiationException {
         String[] values = sourceString.split(regEx.get(compositeClass));
         T result = compositeClass.newInstance();
 

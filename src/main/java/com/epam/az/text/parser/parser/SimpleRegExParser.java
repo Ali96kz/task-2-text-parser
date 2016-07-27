@@ -47,7 +47,7 @@ public class SimpleRegExParser implements Parser {
     }
 
 
-    public <T extends AbstractComposite> T parse(Class<T> e, String source) throws IllegalAccessException, InstantiationException {
+    public <T extends AbstractComponent> T parse(Class<T> e, String source) throws IllegalAccessException, InstantiationException {
         Text text = parseText(source);
         return (T) text;
     }
