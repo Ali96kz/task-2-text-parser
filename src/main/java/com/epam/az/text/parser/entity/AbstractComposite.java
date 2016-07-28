@@ -90,9 +90,10 @@ public abstract class AbstractComposite<E extends TextComponent> implements Text
                         return it.hasNext();
                     } else {
                         cursor++;
-                        //T
-                        composite = (AbstractComposite) items.get(cursor);
-                        it = composite.iterator();
+                        if(cursor < size()) {
+                            composite = (AbstractComposite) items.get(cursor);
+                            it = composite.iterator();
+                        }
                         return it.hasNext();
                     }
                 }

@@ -3,7 +3,6 @@ package com.epam.az.text.parser.service;
 import com.epam.az.text.parser.entity.Sentence;
 import com.epam.az.text.parser.entity.Text;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Finder {
