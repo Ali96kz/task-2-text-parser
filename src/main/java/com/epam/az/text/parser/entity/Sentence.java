@@ -1,5 +1,5 @@
 package com.epam.az.text.parser.entity;
 
-public class Sentence extends AbstractComponent<SentencePart> {
+public class Sentence extends AbstractComposite<SentencePart> {
 
 }

@@ -1,8 +1,8 @@
 package com.epam.az.text.parser.parser;
 
-import com.epam.az.text.parser.entity.AbstractComponent;
+import com.epam.az.text.parser.entity.AbstractComposite;
 
 public interface Parser {
-    <T extends AbstractComponent> T parse(Class<T> e, String source) throws IllegalAccessException, InstantiationException;
+    <T extends AbstractComposite> T parse(Class<T> e, String source) throws IllegalAccessException, InstantiationException;
 
 }

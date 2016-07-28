@@ -7,7 +7,7 @@ import java.util.Iterator;
 
 public class Finder {
     public Sentence find(Text text) {
-        Iterator it = text.iterator(Sentence.class);
+        Iterator it = text.iterator(Text.class ,Sentence.class);
 
         while (it.hasNext()){
             Sentence sentence = (Sentence) it.next();
