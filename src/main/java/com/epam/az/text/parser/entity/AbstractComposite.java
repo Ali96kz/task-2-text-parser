@@ -29,10 +29,11 @@ public abstract class AbstractComposite<E extends TextComponent> implements Text
 
     @Override
     public void remove(int i) {
-        if (i < 0) {
+        if (i <= -1) {
             items.remove(items.size() + i);
         }
-        items.remove(i);
+        if (size() > 2)
+            items.remove(0);
     }
 
     @Override
@@ -57,7 +58,6 @@ public abstract class AbstractComposite<E extends TextComponent> implements Text
 
     public Iterator<E> iterator(Class parentClass, Class clazz){
         if(iterComponent.get(this.getClass()) == clazz) return iterator();
-        System.out.println();
         return  new DeepIterator(this.getClass(),clazz);
     }
 
@@ -70,6 +70,7 @@ public abstract class AbstractComposite<E extends TextComponent> implements Text
         private int cursor = 0;
         private Class aClass;
         private Class parentClass;
+        private Iterator it = null;
         public DeepIterator(Class parentClass, Class aClass) {
             this.aClass = aClass;
             this.parentClass = aClass;
@@ -77,19 +78,34 @@ public abstract class AbstractComposite<E extends TextComponent> implements Text
 
         @Override
         public boolean hasNext() {
-            if(cursor < size()) return false;
-            if(items.get(cursor) instanceof AbstractComposite) {
-                AbstractComposite composite = (AbstractComposite) items.get(cursor);
-                return composite.iterator(iterComponent.get(parentClass), aClass).hasNext();
+            if(it == null){
+                if(items.get(cursor) instanceof AbstractComposite) {
+                    AbstractComposite abstractComposite = (AbstractComposite) items.get(cursor);
+                    it = abstractComposite.iterator();
+                    if (it.hasNext()) {
+                        return true;
+                    }
+                }
+            }else {
+                if(items.get(cursor) instanceof AbstractComposite && cursor < size()) {
+                    AbstractComposite composite;
+                    if (it.hasNext()) {
+                        return it.hasNext();
+                    } else {
+                        cursor++;
+                        //TODO IndexOutOfBoundsException
+                        composite = (AbstractComposite) items.get(cursor);
+                        it = composite.iterator();
+                        return it.hasNext();
+                    }
+                }
             }
-            else {
-                return false;
-            }
+            return false;
         }
 
         @Override
         public T next() {
-            return null;
+            return (T) it.next();
         }
     }
 }

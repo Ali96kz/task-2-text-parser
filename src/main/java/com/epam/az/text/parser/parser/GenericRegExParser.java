@@ -8,18 +8,17 @@ import java.util.Map;
 public class GenericRegExParser implements Parser {
     private Map<Class<? extends TextComponent>, String> regEx = new HashMap<Class<? extends TextComponent>, String>();
     private Map<Class<? extends TextComponent>, Class<? extends TextComponent>> clazzes = new HashMap<Class<? extends TextComponent>, Class<? extends TextComponent>>();
-
     public GenericRegExParser() {
-        init();
     }
 
-    public void init() {
+    {
         clazzes.put(Text.class, Paragraph.class);
         clazzes.put(Paragraph.class, Sentence.class);
         clazzes.put(Sentence.class, SentencePart.class);
 
         regEx.put(Text.class, "(?<=\\n)");
         regEx.put(Paragraph.class, "(?<=[.!?]\\s)");
+        //TODO Regex incorrect split sentences
         regEx.put(Sentence.class, "(?<=\\w)(?=\\W) | (?<=\\W) (?=\\w) | (?<=\\W)(?=\\W)");
     }
 
