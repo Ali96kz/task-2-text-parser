@@ -32,7 +32,8 @@ public abstract class AbstractComposite<E extends TextComponent> implements Text
         if (i < 0) {
             items.remove(items.size() + i);
         }
-        items.remove(i);
+        else
+            items.remove(i);
     }
 
     @Override

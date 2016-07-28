@@ -10,8 +10,8 @@ public class Finder {
         Iterator it = text.iterator(Sentence.class);
         while (it.hasNext()){
             Sentence sentence = (Sentence) it.next();
-           /* sentence.remove(1);
-            sentence.remove(-1);*/
+            sentence.remove(-1);
+            sentence.remove(0);
             System.out.println(sentence.assemble(new StringBuilder()));
 
         }
