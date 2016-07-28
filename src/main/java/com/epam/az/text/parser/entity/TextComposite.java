@@ -16,5 +16,5 @@ public interface TextComposite<E extends TextComponent> extends TextComponent, I
 
     @Override
     Iterator<E> iterator();
-    Iterator<E> iterator(Class parentClass ,Class clazz);
+    Iterator<E> iterator(Class clazz);
 }

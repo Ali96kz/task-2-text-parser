@@ -8,11 +8,11 @@ import java.util.Iterator;
 
 public class Finder {
     public Sentence find(Text text) {
-        Iterator it = text.iterator(Text.class ,Sentence.class);
+        Iterator it = text.iterator(Sentence.class);
         while (it.hasNext()){
             Sentence sentence = (Sentence) it.next();
-            sentence.remove(1);
-            sentence.remove(-1);
+           /* sentence.remove(1);
+            sentence.remove(-1);*/
             System.out.println(sentence.assemble(new StringBuilder()));
 
         }

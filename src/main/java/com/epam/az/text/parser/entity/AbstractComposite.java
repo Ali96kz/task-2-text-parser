@@ -29,11 +29,10 @@ public abstract class AbstractComposite<E extends TextComponent> implements Text
 
     @Override
     public void remove(int i) {
-        if (i <= -1) {
+        if (i < 0) {
             items.remove(items.size() + i);
         }
-        if (size() > 2)
-            items.remove(0);
+        items.remove(i);
     }
 
     @Override
@@ -55,10 +54,10 @@ public abstract class AbstractComposite<E extends TextComponent> implements Text
     public Iterator<E> iterator() {
         return items.iterator();
     }
-
-    public Iterator<E> iterator(Class parentClass, Class clazz){
+    @Override
+    public Iterator<E> iterator( Class clazz){
         if(iterComponent.get(this.getClass()) == clazz) return iterator();
-        return  new DeepIterator(this.getClass(),clazz);
+        return  new DeepIterator(clazz);
     }
 
     @Override
@@ -69,11 +68,9 @@ public abstract class AbstractComposite<E extends TextComponent> implements Text
     class DeepIterator<T extends AbstractComposite> implements Iterator<T>{
         private int cursor = 0;
         private Class aClass;
-        private Class parentClass;
         private Iterator it = null;
-        public DeepIterator(Class parentClass, Class aClass) {
+        public DeepIterator(Class aClass) {
             this.aClass = aClass;
-            this.parentClass = aClass;
         }
 
         @Override
@@ -93,7 +90,7 @@ public abstract class AbstractComposite<E extends TextComponent> implements Text
                         return it.hasNext();
                     } else {
                         cursor++;
-                        //TODO IndexOutOfBoundsException
+                        //T
                         composite = (AbstractComposite) items.get(cursor);
                         it = composite.iterator();
                         return it.hasNext();
