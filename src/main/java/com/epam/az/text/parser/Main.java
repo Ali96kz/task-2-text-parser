@@ -15,9 +15,11 @@ public class Main {
         String s = fileReader.read();
         Parser parser = new GenericRegExParser();
         Text text = parser.parse(Text.class, s);
-        Finder finder = new Finder();
-        finder.find(text);
 
+        Finder finder = new Finder();
+        StringBuilder stringBuilder = new StringBuilder();
+        finder.deleteWord(text, stringBuilder);
+        System.out.println(stringBuilder);
     }
 
 }
