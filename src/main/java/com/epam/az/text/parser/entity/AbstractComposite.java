@@ -6,10 +6,12 @@ import java.util.List;
 public abstract class AbstractComposite<E extends TextComponent> implements TextComposite<E> {
     List<E> items = new ArrayList<>();
     static Map<Class, Class> iterComponent = new HashMap<>();
-    static Map<Class, List<Class>> deepIter = new HashMap<>();
+    static Map<Class, Class> deepIter = new HashMap<>();
 
     {
-        deepIter.put(Text.class, Arrays.asList(Paragraph.class, Sentence.class));
+        deepIter.put(Paragraph.class, Text.class);
+        deepIter.put(Sentence.class, Paragraph.class);
+        deepIter.put(Word.class, Sentence.class);
 
         iterComponent.put(Text.class, Paragraph.class);
         iterComponent.put(Paragraph.class, Sentence.class);
@@ -56,7 +58,7 @@ public abstract class AbstractComposite<E extends TextComponent> implements Text
         return items.iterator();
     }
     @Override
-    public Iterator<E> iterator( Class clazz){
+    public Iterator<E> iterator(Class clazz){
         if(iterComponent.get(this.getClass()) == clazz) return iterator();
         return  new DeepIterator(clazz);
     }
@@ -79,25 +81,21 @@ public abstract class AbstractComposite<E extends TextComponent> implements Text
             if(it == null){
                 if(items.get(cursor) instanceof AbstractComposite) {
                     AbstractComposite abstractComposite = (AbstractComposite) items.get(cursor);
-                    it = abstractComposite.iterator();
-                    if (it.hasNext()) {
-                        return true;
-                    }
+                    it = abstractComposite.iterator(aClass);
+                    return it.hasNext();
                 }
             }else {
-                if(items.get(cursor) instanceof AbstractComposite && cursor < size()) {
-                    AbstractComposite composite;
-                    if (it.hasNext()) {
-                        return it.hasNext();
-                    } else {
+                if (it.hasNext()) {
+                    return it.hasNext();
+                } else {
+                    if (cursor+1 < size() && items.get(cursor) instanceof AbstractComposite) {
                         cursor++;
-                        if(cursor < size()) {
-                            composite = (AbstractComposite) items.get(cursor);
-                            it = composite.iterator();
-                        }
+                        AbstractComposite composite = (AbstractComposite) items.get(cursor);
+                        it = composite.iterator(aClass);
                         return it.hasNext();
                     }
                 }
+
             }
             return false;
         }
@@ -105,6 +103,10 @@ public abstract class AbstractComposite<E extends TextComponent> implements Text
         @Override
         public T next() {
             return (T) it.next();
+        }
+
+        public boolean initialize(){
+            return false;
         }
     }
 }
