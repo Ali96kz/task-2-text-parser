@@ -75,15 +75,15 @@ public abstract class AbstractComposite<E extends TextComponent> implements Text
         public boolean hasNext() {
             if(it == null){
                 if(items.get(cursor) instanceof AbstractComposite) {
-                    return initIter().hasNext();
+                    return initIter(cursor).hasNext();
                 }
             }else {
                 if (it.hasNext()) {
                     return it.hasNext();
                 } else {
-                    if (cursor+1 < size() && (items.get(cursor) instanceof AbstractComposite || items.get(cursor) instanceof Symbol)) {
+                    if (cursor+1 < size() && (items.get(cursor) instanceof AbstractComposite )) {
                         cursor++;
-                        return initIter().hasNext();
+                        return initIter(cursor).hasNext();
                     }
                 }
             }
@@ -94,8 +94,8 @@ public abstract class AbstractComposite<E extends TextComponent> implements Text
             return (T) it.next();
         }
 
-        public Iterator initIter(){
-            AbstractComposite composite = (AbstractComposite) items.get(cursor);
+        public Iterator initIter(int i){
+            AbstractComposite composite = (AbstractComposite) items.get(i);
             it = composite.iterator(aClass);
             return it;
         }
