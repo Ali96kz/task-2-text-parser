@@ -6,13 +6,8 @@ import java.util.List;
 public abstract class AbstractComposite<E extends TextComponent> implements TextComposite<E> {
     List<E> items = new ArrayList<>();
     static Map<Class, Class> iterComponent = new HashMap<>();
-    static Map<Class, Class> deepIter = new HashMap<>();
 
     {
-        deepIter.put(Paragraph.class, Text.class);
-        deepIter.put(Sentence.class, Paragraph.class);
-        deepIter.put(Word.class, Sentence.class);
-
         iterComponent.put(Text.class, Paragraph.class);
         iterComponent.put(Paragraph.class, Sentence.class);
         iterComponent.put(Sentence.class, Word.class);
