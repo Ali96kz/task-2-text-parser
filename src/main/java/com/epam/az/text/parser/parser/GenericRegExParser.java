@@ -2,14 +2,14 @@ package com.epam.az.text.parser.parser;
 
 import com.epam.az.text.parser.entity.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class GenericRegExParser implements Parser {
     private Map<Class<? extends TextComponent>, String> regEx = new HashMap<Class<? extends TextComponent>, String>();
     private Map<Class<? extends TextComponent>, Class<? extends TextComponent>> clazzes = new HashMap<Class<? extends TextComponent>, Class<? extends TextComponent>>();
-    public GenericRegExParser() {
-    }
 
     {
         clazzes.put(Text.class, Paragraph.class);
@@ -22,6 +22,9 @@ public class GenericRegExParser implements Parser {
         regEx.put(Sentence.class, "(?<=\\w)(?=\\W) | (?<=\\W) (?=\\w) | (?<=\\W)(?=\\W)");
     }
 
+    public GenericRegExParser() {
+    }
+
     public <T extends AbstractComposite> T parse(Class<T> compositeClass, String sourceString) throws IllegalAccessException, InstantiationException {
         String[] values = sourceString.split(regEx.get(compositeClass));
         T result = compositeClass.newInstance();
@@ -29,9 +32,9 @@ public class GenericRegExParser implements Parser {
         if (clazzes.get(compositeClass) == SentencePart.class) {
             for (String value : values) {
                 if (value.matches("\\W")) {
-                    result.add(punctuationParse(new PunctuationChar(), value));
+                    result.add((TextComponent) punctuationParse(value));
                 } else {
-                    result.add(parseWord(new Word(), value));
+                    result.add(parseWord(value));
                 }
             }
         } else {
@@ -45,19 +48,20 @@ public class GenericRegExParser implements Parser {
         return result;
     }
 
-    private Word parseWord(Word symbol, String source) {
+    private Word parseWord(String source) {
+        Word word = new Word();
         for (int i = 0; i < source.length(); i++) {
-            WordChar wordChar = new WordChar();
-            wordChar.setValue(source.charAt(i));
-            symbol.add(wordChar);
+            WordChar wordChar = (WordChar) Symbol.valueOf(source.charAt(i), WordChar.class);
+            word.add(wordChar);
         }
-        return symbol;
+        return word;
     }
 
-    private PunctuationChar punctuationParse(PunctuationChar symbol, String source) {
+    private List<SentencePart> punctuationParse(String source) {
+        List<SentencePart> punctations = new ArrayList<>();
         for (int i = 0; i < source.length(); i++) {
-            symbol.setValue(source.charAt(i));
+            punctations.add((SentencePart) Symbol.valueOf(source.charAt(i), PunctuationChar.class));
         }
-        return symbol;
+        return punctations;
     }
 }

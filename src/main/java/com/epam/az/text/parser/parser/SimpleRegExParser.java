@@ -36,11 +36,9 @@ public class SimpleRegExParser implements Parser {
     public Word parseWord(String source) {
 
         Word result = new Word();
-        WordChar wordChar;
+        Symbol wordChar;
         for (int i = 0; i < source.length(); i++) {
-            wordChar = new WordChar();
-            char ch = source.charAt(i);
-            wordChar.setValue(ch);
+            wordChar = Symbol.valueOf(source.charAt(i), WordChar.class);
             result.add(wordChar);
         }
         return result;
